@@ -1,0 +1,27 @@
+#r "Newtonsoft.Json"
+
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+
+public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
+{
+    log.LogInformation("C# HTTP trigger function processed a request.");
+
+    String Status = await new StreamReader(req.Body).ReadToEndAsync();
+
+    int StatusInInt = 0;
+
+    if (String.Equals(Status, "Created")){
+        StatusInInt = 1;
+    } else if (String.Equals(Status, "Dispatched")){
+        StatusInInt = 2;
+    } else if (String.Equals(Status, "Delivered")) {
+        StatusInInt = 3;
+    }
+
+    return StatusInInt != 0
+        ? (ActionResult)new OkObjectResult(StatusInInt)
+        : new BadRequestObjectResult("Please pass valid status in the request body");
+}
