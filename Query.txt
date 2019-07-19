@@ -1,0 +1,9 @@
+SELECT top 5 c.ownerName, c.telephone FROM c order by c.ownerName
+SELECT  c.ownerName FROM c
+SELECT  value c.ownerName FROM c
+SELECT {"owner":p.ownerName,"telephone":p.telephone} AS ownerDetails FROM pets p
+SELECT (c.state = 'VIC')? 'Victoria': 'Not victoria' AS description FROM c
+################ Advance ################
+SELECT c.registration.status from c
+SELECT * from c.pets[0]
+SELECT ARRAY_LENGTH(c.pets) AS NumberofPets FROM c
